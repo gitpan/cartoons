@@ -1,4 +1,4 @@
-#!/u/sb/sw/bin/perl -w
+#!/sw/bin/perl -w
 
 ###############################################################################
 ##                                                                           ##
@@ -23,7 +23,7 @@ $self =~ s!\.pl$!!;
 
 $temp = "/tmp/${self}_$$.html";
 
-$lynx = "/opt/bin/lynx -source";
+$lynx = "/sw/bin/lynx -source";
 
 #@Date = (1999,6,19);
 @Date = Today();

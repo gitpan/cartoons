@@ -1,4 +1,4 @@
-#!/u/sb/sw/bin/perl -w
+#!/sw/bin/perl -w
 
 ###############################################################################
 ##                                                                           ##
@@ -24,7 +24,7 @@ $self =~ s!\.pl$!!;
 
 $temp = "/tmp/${self}_$$.html";
 
-$lynx = "/opt/bin/lynx -source";
+$lynx = "/sw/bin/lynx -source";
 
 @Date = Today();
 $date = sprintf("%04d%02d%02d", @Date);
@@ -58,20 +58,25 @@ unless (-f $file && -s $file)
                         {
                             if (-f $file && -s $file && -B $file)
                             {
-                                @Date = Add_Delta_Days(@Date,-1);
-                                $date = sprintf("%04d%02d%02d", @Date);
-                                $name = "${prefix}${date}${suffix}";
-                                $prev = "$path/$name";
-                                if (-f $prev)
+                                $max = 30;
+                                while ($max--)
                                 {
-                                    if (compare($prev,$file) == 0)
+                                    @Date = Add_Delta_Days(@Date,-1);
+                                    $date = sprintf("%04d%02d%02d", @Date);
+                                    $name = "${prefix}${date}${suffix}";
+                                    $prev = "$path/$name";
+                                    if (-f $prev)
                                     {
-                                        unlink($file);
-#                                       &alert("same file as yesterday!");
+                                        if (compare($prev,$file) == 0)
+                                        {
+                                            unlink($file);
+#                                           &alert("same file as $date!");
+                                        }
+                                        else { chmod(0444, $file); }
+                                        last;
                                     }
-                                    else { chmod(0444, $file); }
+                                    else { chmod(0444, $file) unless ($max); }
                                 }
-                                else { chmod(0444, $file); }
                             }
                             else
                             {

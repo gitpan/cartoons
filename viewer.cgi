@@ -1,4 +1,4 @@
-#!/u/sb/sw/bin/perl -w
+#!/sw/bin/perl -w
 
 ###############################################################################
 ##                                                                           ##
@@ -30,6 +30,8 @@ Content-type: text/html
 <HTML>
 <HEAD>
     <TITLE>${head}${title}${capt}${tail}</TITLE>
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="expires" CONTENT="now">
 </HEAD>
 <BODY BGCOLOR="#FFFFFF" BACKGROUND="../img/udjat.gif">
 <CENTER>

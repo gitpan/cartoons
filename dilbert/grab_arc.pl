@@ -13,8 +13,9 @@
 use Date::Calc qw(Today Add_Delta_Days);
 use File::Compare;
 
-$path = "/u/sb/.www/cartoons/garfield/img";
-$prefix = "garfield";
+$base = "http://www.unitedmedia.com";
+$path = "/u/sb/.www/cartoons/dilbert/img/archive";
+$prefix = "dilbert";
 $suffix = ".gif";
 
 $self = $0;
@@ -25,7 +26,8 @@ $self =~ s!\.pl$!!;
 
 $lynx = "/sw/bin/lynx -source";
 
-@Date = Today();
+$count = '01';
+@Date = (1995, 1, 1);
 
 while(1)
 {
@@ -34,11 +36,11 @@ $date = sprintf("%04d%02d%02d", @Date);
 $name = "${prefix}${date}${suffix}";
 $file = "$path/$name";
 
-$yy = substr($Date[0], -2);
-$mm = sprintf("%02d", $Date[1]);
-$dd = sprintf("%02d", $Date[2]);
+#$yy = substr($Date[0], -2);
+#$mm = sprintf("%02d", $Date[1]);
+#$dd = sprintf("%02d", $Date[2]);
 
-@Date = Add_Delta_Days(@Date,-1);
+@Date = Add_Delta_Days(@Date,1);
 
 unless (-f $file && -s $file)
 {
@@ -62,24 +64,25 @@ unless (-f $file && -s $file)
 #               {
 #                   if ($html =~ m!!i)
 #                   {
-                        $url = "http://www.garfield.com/comics/strips/ga$yy$mm$dd.gif";
+                        $url = "$base/comics/dilbert/scott/dawn/images/pg${count}.gif";
                         if (system("$lynx '$url' >'$file' 2>/dev/null") == 0)
                         {
                             if (-f $file && -s $file && -B $file)
                             {
-                                $date = sprintf("%04d%02d%02d", @Date);
-                                $name = "${prefix}${date}${suffix}";
-                                $prev = "$path/$name";
-                                if (-f $prev)
-                                {
-                                    if (compare($prev,$file) == 0)
-                                    {
-                                        unlink($file);
+#                               $date = sprintf("%04d%02d%02d", @Date);
+#                               $name = "${prefix}${date}${suffix}";
+#                               $prev = "$path/$name";
+#                               if (-f $prev)
+#                               {
+#                                   if (compare($prev,$file) == 0)
+#                                   {
+#                                       unlink($file);
 #                                       &alert("same file as yesterday!");
-                                    }
-                                    else { chmod(0444, $file); }
-                                }
-                                else { chmod(0444, $file); }
+#                                   }
+#                                   else { chmod(0444, $file); }
+#                               }
+#                               else { chmod(0444, $file); }
+                                chmod(0444, $file);
                             }
                             else
                             {
@@ -95,6 +98,7 @@ unless (-f $file && -s $file)
 #   } else { &alert("system call #1: rc=$?"); }
 } # else { &alert("file '$file' already exists!"); }
 
+$count++;
 }
 
 exit;
