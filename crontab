@@ -1,0 +1,6 @@
+### Minute, Stunde, Tag, Monat, Wochentag 
+01,16,31,46 * * * * /u/sb/.www/cartoons/dilbert/grabber.pl
+04,19,34,49 * * * * /u/sb/.www/cartoons/userfriendly/grabber.pl
+07,22,37,52 * * * * /u/sb/.www/cartoons/peanuts/grabber.pl
+10,25,40,55 * * * * /u/sb/.www/cartoons/calvinandhobbes/grabber.pl
+13,28,43,58 * * * * /u/sb/.www/cartoons/garfield/grabber.pl
